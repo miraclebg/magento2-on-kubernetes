@@ -3,8 +3,11 @@ KUSTOMIZE = /usr/bin/env kustomize
 KUBECTL = /usr/bin/env kubectl
 
 ELASTIC-OPERATOR-PATH := vendor/ec-on-k8s
-ELASTIC-OPERATOR-FILE := all-in-one.yaml
-ELASTIC-OPERATOR-URL := https://download.elastic.co/downloads/eck/1.9.1/all-in-one.yaml
+ELASTIC-OPERATOR-FILE := operator.yaml
+ELASTIC-OPERATOR-URL := https://download.elastic.co/downloads/eck/2.2.0/operator.yaml
+
+ELASTIC-CUSTOM-RESOURCE-DEFINITIONS--FILE := crds.yaml
+ELASTIC-CUSTOM-RESOURCE-DEFINITIONS-URL := https://download.elastic.co/downloads/eck/2.2.0/crds.yaml
 
 $(ELASTIC-OPERATOR-PATH):
 	mkdir -p $(ELASTIC-OPERATOR-PATH)
@@ -12,8 +15,14 @@ $(ELASTIC-OPERATOR-PATH):
 $(ELASTIC-OPERATOR-PATH)/$(ELASTIC-OPERATOR-FILE): $(ELASTIC-OPERATOR-PATH)
 	curl -o $(ELASTIC-OPERATOR-PATH)/$(ELASTIC-OPERATOR-FILE) $(ELASTIC-OPERATOR-URL)
 
+$(ELASTIC-OPERATOR-PATH)/$(ELASTIC-CUSTOM-RESOURCE-DEFINITIONS--FILE): $(ELASTIC-OPERATOR-PATH)
+	curl -o $(ELASTIC-OPERATOR-PATH)/$(ELASTIC-CUSTOM-RESOURCE-DEFINITIONS--FILE) $(ELASTIC-CUSTOM-RESOURCE-DEFINITIONS-URL)
+
 elastic-operator: $(ELASTIC-OPERATOR-PATH)/$(ELASTIC-OPERATOR-FILE)
 	$(KUBECTL) apply -f $(ELASTIC-OPERATOR-PATH)/$(ELASTIC-OPERATOR-FILE)
+
+elastic-custom-resource-definitions: $(ELASTIC-OPERATOR-PATH)/$(ELASTIC-CUSTOM-RESOURCE-DEFINITIONS--FILE)
+	$(KUBECTL) apply -f $(ELASTIC-OPERATOR-PATH)/$(ELASTIC-CUSTOM-RESOURCE-DEFINITIONS--FILE)
 
 minikube:
 	$(MINIKUBE) start \
@@ -34,13 +43,14 @@ minikube:
 step-1:
 	$(KUBECTL) kustomize deploy/step-1 | $(KUBECTL) apply -f -
 
-step-2: elastic-operator
+step-2: elastic-custom-resource-definitions \
+	elastic-operator
 	$(KUBECTL) kustomize deploy/step-2 | $(KUBECTL) apply -f -
 
-step-3: elastic-operator
+step-3:
 	$(KUBECTL) kustomize deploy/step-3 | $(KUBECTL) apply -f -
 
-step-4: elastic-operator
+step-4: 
 	$(KUBECTL) kustomize deploy/step-4 | $(KUBECTL) apply -f -
 
 .PHONY: minikube step-1 step-2 step-3 step-4
