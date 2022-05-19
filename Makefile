@@ -17,10 +17,10 @@ elastic-operator: $(ELASTIC-OPERATOR-PATH)/$(ELASTIC-OPERATOR-FILE)
 
 minikube:
 	$(MINIKUBE) start \
-	--kubernetes-version=v1.21.10 \
-	--vm-driver=kvm2 \
+	--kubernetes-version=v1.24.0 \
+	--vm-driver=docker \
 	--cpus=4 \
-	--memory=16g \
+	--memory=4g \
 	--bootstrapper=kubeadm \
 	--extra-config=kubelet.authentication-token-webhook=true \
 	--extra-config=kubelet.authorization-mode=Webhook \
