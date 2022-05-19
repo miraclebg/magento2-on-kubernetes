@@ -60,7 +60,7 @@ spec:
             configMapKeyRef:
               name: config
               key: DB_ROOT_PASS
-        image: percona:5.7
+        image: mariadb:10.4
         name: db
         resources:
           requests:

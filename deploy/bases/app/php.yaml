@@ -40,7 +40,7 @@ spec:
         k8s-app: magento
     spec:
       containers:
-      - image: kiweeteam/magento2:2.3.7-p2-1
+      - image: nimasystems/magento2-on-kubernetes-php:latest
         imagePullPolicy: IfNotPresent
         name: magento-php
         ports:
