@@ -32,15 +32,15 @@ minikube:
 	minikube addons enable metrics-server
 
 step-1:
-	$(KUSTOMIZE) build deploy/step-1 | $(KUBECTL) apply -f -
+	$(KUBECTL) kustomize deploy/step-1 | $(KUBECTL) apply -f -
 
 step-2: elastic-operator
-	$(KUSTOMIZE) build deploy/step-2 | $(KUBECTL) apply -f -
+	$(KUBECTL) kustomize deploy/step-2 | $(KUBECTL) apply -f -
 
 step-3: elastic-operator
-	$(KUSTOMIZE) build deploy/step-3 | $(KUBECTL) apply -f -
+	$(KUBECTL) kustomize deploy/step-3 | $(KUBECTL) apply -f -
 
 step-4: elastic-operator
-	$(KUSTOMIZE) build deploy/step-4 | $(KUBECTL) apply -f -
+	$(KUBECTL) kustomize deploy/step-4 | $(KUBECTL) apply -f -
 
 .PHONY: minikube step-1 step-2 step-3 step-4
