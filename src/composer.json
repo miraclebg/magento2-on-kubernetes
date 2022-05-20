@@ -74,13 +74,6 @@
     },
     "minimum-stability": "stable",
     "prefer-stable": true,
-    "repositories": [
-        {
-            "type": "composer",
-            "url": "https://repo-magento-mirror.fooman.co.nz/",
-            "canonical": false
-        }
-    ],
     "extra": {
         "magento-force": "override"
     }
