@@ -47,10 +47,12 @@ step-2: elastic-custom-resource-definitions \
 	elastic-operator
 	$(KUBECTL) kustomize deploy/step-2 | $(KUBECTL) apply -f -
 
-step-3:
+step-3: elastic-custom-resource-definitions \
+  elastic-operator
 	$(KUBECTL) kustomize deploy/step-3 | $(KUBECTL) apply -f -
 
-step-4: 
+step-4: elastic-custom-resource-definitions \
+  elastic-operator
 	$(KUBECTL) kustomize deploy/step-4 | $(KUBECTL) apply -f -
 
 .PHONY: minikube step-1 step-2 step-3 step-4
