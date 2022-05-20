@@ -29,7 +29,7 @@ minikube:
 	--kubernetes-version=v1.23.4-rc.0 \
 	--vm-driver=docker \
 	--cpus=4 \
-	--memory=4g \
+	--memory=8g \
 	--bootstrapper=kubeadm \
 	--extra-config=kubelet.authentication-token-webhook=true \
 	--extra-config=kubelet.authorization-mode=Webhook \
