@@ -26,7 +26,7 @@ elastic-custom-resource-definitions: $(ELASTIC-OPERATOR-PATH)/$(ELASTIC-CUSTOM-R
 
 minikube:
 	$(MINIKUBE) start \
-	--kubernetes-version=v1.23.4-rc.0 \
+	--kubernetes-version=v1.24.3 \
 	--vm-driver=docker \
 	--cpus=4 \
 	--memory=8g \
